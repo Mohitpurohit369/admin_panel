@@ -1,0 +1,118 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Brand Logo</h5>
+        </div>
+        <div class="card-body tab2-card">
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" id="brandLogoTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button (click)="switchTab('add')" class="nav-link" [class.active]="activeTab === 'add'">Add</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button (click)="switchTab('view')" class="nav-link" [class.active]="activeTab === 'view'">View</button>
+                </li>
+            </ul>
+
+            <!-- Add Form -->
+            <!-- <div *ngIf="activeTab === 'add'" class="tab-pane">
+                <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <div *ngIf="f['name'].touched && f['name'].invalid">
+                            <span *ngIf="f['name'].hasError('required')" class="text-danger">Name is required.</span>
+                            <span *ngIf="f['name'].hasError('minlength')" class="text-danger">Minimum 1 character required.</span>
+                            <span *ngIf="f['name'].hasError('maxlength')" class="text-danger">Maximum 10 characters allowed.</span>
+                          </div>
+                      </div>
+                    
+                      <div class="form-group">
+                        <label>Code</label>
+                        <input type="text" class="form-control" formControlName="code">
+                        <div *ngIf="f['code'].touched && f['code'].invalid">
+                            <span *ngIf="f['code'].hasError('required')" class="text-danger">code is required.</span>
+                            <span *ngIf="f['code'].hasError('minlength')" class="text-danger">Minimum 1 character required.</span>
+                            <span *ngIf="f['code'].hasError('maxlength')" class="text-danger">Maximum 10 characters allowed.</span>
+                          </div>
+                      </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">{{ editMode ? 'Update' : 'Save' }}</button>
+                        <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">Cancel</button>
+                    </div>
+                </form>
+            </div> -->
+
+
+            <div *ngIf="activeTab === 'add'" class="tab-pane">
+                <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+              
+                  <!-- Name Field -->
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" formControlName="name" (blur)="f['name'].markAsTouched()">
+                    <div *ngIf="f['name'].touched && f['name'].invalid">
+                      <span *ngIf="f['name'].hasError('required')" class="text-danger">Name is required.</span>
+                      <span *ngIf="f['name'].hasError('minlength')" class="text-danger">Minimum 1 character required.</span>
+                      <span *ngIf="f['name'].hasError('maxlength')" class="text-danger">Maximum 10 characters allowed.</span>
+                    </div>
+                  </div>
+                
+                  <!-- Code Field -->
+                  <div class="form-group">
+                    <label>Code</label>
+                    <input type="text" class="form-control" formControlName="code" (blur)="f['code'].markAsTouched()">
+                    <div *ngIf="f['code'].touched && f['code'].invalid">
+                      <span *ngIf="f['code'].hasError('required')" class="text-danger">Code is required.</span>
+                      <span *ngIf="f['code'].hasError('minlength')" class="text-danger">Minimum 1 character required.</span>
+                      <span *ngIf="f['code'].hasError('maxlength')" class="text-danger">Maximum 10 characters allowed.</span>
+                    </div>
+                  </div>
+              
+                  <!-- Buttons -->
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary" [disabled]="brandForm.invalid">
+                      {{ editMode ? 'Update' : 'Save' }}
+                    </button>
+                    <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">Cancel</button>
+                  </div>
+              
+                </form>
+              </div>
+              
+            <!-- View Table -->
+            <div *ngIf="activeTab === 'view'" class="tab-pane">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let band of objRows">
+                                <td>{{ band.name }}</td>
+                                <td>{{band.code}}</td>
+                                
+                                <td>{{ band.updatedAt | date:'MMM d, y' }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" (click)="onEdit(band._id)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" (click)="Delete(band._id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
